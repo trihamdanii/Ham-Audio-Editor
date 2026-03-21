@@ -42,8 +42,8 @@
       "browserRequirements": "Requires a modern browser with Web Audio API support",
       "offers": {
         "@type": "Offer",
-        "price": "20000",
-        "priceCurrency": "IDR"
+        "price": "0",
+        "priceCurrency": "USD"
       },
       "featureList": [
         "MP3 Trimmer",
@@ -371,6 +371,102 @@ input[type="range"], input[type="file"] {
     user-select: auto;
 }
 
+
+/* ===== SAWERIA FLOATING BUTTON ===== */
+.saweria-float {
+    position: fixed;
+    bottom: 28px;
+    left: 28px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+}
+.saweria-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(135deg, #f97316, #ef4444);
+    color: #fff;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    padding: 12px 20px;
+    border-radius: 50px;
+    text-decoration: none;
+    box-shadow: 0 6px 24px rgba(249,115,22,0.45);
+    transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+    letter-spacing: 0.3px;
+    animation: saweriaPop 0.6s cubic-bezier(0.34,1.56,0.64,1) 1.5s both;
+}
+@keyframes saweriaPop {
+    from { transform: scale(0) translateY(20px); opacity: 0; }
+    to   { transform: scale(1) translateY(0);    opacity: 1; }
+}
+.saweria-btn:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 12px 32px rgba(249,115,22,0.6);
+}
+.saweria-btn:active { transform: scale(0.97); }
+.saweria-btn .saw-icon {
+    font-size: 1.3rem;
+    animation: heartbeat 1.5s ease-in-out infinite;
+}
+@keyframes heartbeat {
+    0%,100% { transform: scale(1); }
+    14%     { transform: scale(1.25); }
+    28%     { transform: scale(1); }
+    42%     { transform: scale(1.2); }
+    56%     { transform: scale(1); }
+}
+.saweria-label {
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.7);
+    text-align: center;
+    width: 100%;
+    letter-spacing: 0.5px;
+    padding-left: 4px;
+}
+/* Saweria in footer */
+.footer-saweria {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+.footer-saweria a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #f97316, #ef4444);
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 12px 28px;
+    border-radius: 50px;
+    text-decoration: none;
+    box-shadow: 0 4px 16px rgba(249,115,22,0.4);
+    transition: all 0.3s ease;
+    letter-spacing: 0.3px;
+}
+.footer-saweria a:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(249,115,22,0.55);
+}
+.footer-saweria p {
+    color: rgba(255,255,255,0.35);
+    font-size: 0.8rem;
+}
+@media (max-width: 480px) {
+    .saweria-float { bottom: 16px; left: 16px; }
+    .saweria-btn { font-size: 0.85rem; padding: 10px 16px; }
+}
+
     </style>
 </head>
 <body>
@@ -689,10 +785,36 @@ input[type="range"], input[type="file"] {
             </section>
         </main>
 
+
+        <!-- ===== SAWERIA FLOATING BUTTON ===== -->
+        <div class="saweria-float">
+            <a class="saweria-btn"
+               href="https://saweria.co/hamaudioeditor"
+               target="_blank"
+               rel="noopener noreferrer"
+               aria-label="Dukung kami di Saweria">
+                <span class="saw-icon">☕</span>
+                <span>Dukung di Saweria</span>
+            </a>
+            <span class="saweria-label">Traktir kopi buat developer 🙏</span>
+        </div>
+
         <div class="toast-container" id="toastContainer" role="alert" aria-live="assertive"></div>
 
         <footer class="footer">
             <p>⚜️ HAM Audio Editor Pro ⚜️</p>
+
+            <!-- Saweria in footer -->
+            <div class="footer-saweria">
+                <p>Aplikasi ini gratis & akan terus dikembangkan</p>
+                <a href="https://saweria.co/hamaudioeditor"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    ☕ Dukung di Saweria
+                </a>
+                <p>Setiap donasi sangat berarti 🙏</p>
+            </div>
+
             <p class="footer-small">Free Online MP3 Trimmer &amp; Converter • 100% browser-based • Private &amp; Secure</p>
         </footer>
     </div>
