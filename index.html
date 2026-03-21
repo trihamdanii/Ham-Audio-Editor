@@ -10,14 +10,14 @@
     <meta name="keywords" content="online audio editor, mp3 cutter, mp3 trimmer, mp4 to mp3 converter, audio trimmer online, free audio editor, bass boost online, reverb audio, echo effect, speed changer mp3">
     <meta name="author" content="HAM Audio Editor">
     <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://hamaudioeditor.vercel.app/">
+    <link rel="canonical" href="https://ham-audio-editor.vercel.app/">
 
     <!-- ====== OPEN GRAPH (WhatsApp, Facebook, Discord preview) ====== -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://ham-audio-editor.vercel.app/">
     <meta property="og:title" content="HAM Audio Editor Pro – Free MP3 Trimmer & Converter">
     <meta property="og:description" content="Trim MP3, convert MP4 to MP3, add reverb/echo/bass boost. Free, instant, 100% private — runs entirely in your browser.">
-    <meta property="og:image" content="https://hamaudioeditor.vercel.app/og-image.png">
+    <meta property="og:image" content="https://ham-audio-editor.vercel.app/og-image.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:locale" content="en_US">
@@ -27,7 +27,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="HAM Audio Editor Pro – Free MP3 Trimmer & Converter">
     <meta name="twitter:description" content="Trim MP3, convert MP4 to MP3, add reverb/echo/bass boost. Free & 100% private.">
-    <meta name="twitter:image" content="https://hamaudioeditor.vercel.app/og-image.png">
+    <meta name="twitter:image" content="https://ham-audio-editor.vercel.app/og-image.png">
 
     <!-- ====== SCHEMA.ORG STRUCTURED DATA (Google Rich Results) ====== -->
     <script type="application/ld+json">
@@ -35,7 +35,7 @@
       "@context": "https://schema.org",
       "@type": "WebApplication",
       "name": "HAM Audio Editor Pro",
-      "url": "https://hamaudioeditor.vercel.app/",
+      "url": "https://ham-audio-editor.vercel.app/",
       "description": "Free online audio editor. Trim MP3, convert MP4 to MP3, change playback speed, and apply 8 professional audio filters — all in your browser with no uploads.",
       "applicationCategory": "MultimediaApplication",
       "operatingSystem": "Any",
@@ -58,7 +58,7 @@
         "Waveform Visualizer",
         "WAV Export"
       ],
-      "screenshot": "https://hamaudioeditor.vercel.app/og-image.png",
+      "screenshot": "https://ham-audio-editor.vercel.app/og-image.png",
       "creator": {
         "@type": "Organization",
         "name": "HAM Audio Editor"
@@ -356,6 +356,21 @@ body {
     .styled-slider::-webkit-slider-thumb { width: 28px; height: 28px; }
     .trim-handle { width: 16px; }
 }
+
+/* ===== PROTECTION CSS ===== */
+/* Disable text selection */
+body {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+/* Allow selection only inside file inputs and sliders */
+input[type="range"], input[type="file"] {
+    -webkit-user-select: auto;
+    user-select: auto;
+}
+
     </style>
 </head>
 <body>
@@ -385,7 +400,7 @@ body {
             <div class="nav-links">
                 <span class="badge"><i class="fas fa-bolt" aria-hidden="true"></i> v4.0</span>
                 <span class="badge"><i class="fas fa-gem" aria-hidden="true"></i> Ham Audio Editor</span>
-                <span class="badge"><i class="fas fa-shield-alt" aria-hidden="true"></i> 100% Legal</span>
+                <span class="badge"><i class="fas fa-shield-alt" aria-hidden="true"></i> 100% Local</span>
             </div>
         </nav>
 
@@ -542,7 +557,7 @@ body {
                     <div class="control-card premium-card">
                         <div class="card-header">
                             <div class="title-icon"><i class="fas fa-filter" aria-hidden="true"></i></div>
-                            <h3>🎛️ Audio Filters <span class="new-badge">HAM</span></h3>
+                            <h3>🎛️ Audio Filters <span class="new-badge">GOLD</span></h3>
                         </div>
                         <div class="control-content">
                             <div class="filter-selector">
@@ -683,6 +698,63 @@ body {
     </div>
 
 <script>
+
+// ===== PROTECTION: Disable right-click, Ctrl+U, F12, Ctrl+Shift+I =====
+(function() {
+
+    // 1. Disable right-click context menu
+    document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+        return false;
+    });
+
+    // 2. Disable keyboard shortcuts
+    document.addEventListener('keydown', function(e) {
+        // Ctrl+U (view source)
+        if (e.ctrlKey && e.key === 'u') { e.preventDefault(); return false; }
+        // Ctrl+Shift+I (DevTools)
+        if (e.ctrlKey && e.shiftKey && e.key === 'I') { e.preventDefault(); return false; }
+        // Ctrl+Shift+J (Console)
+        if (e.ctrlKey && e.shiftKey && e.key === 'J') { e.preventDefault(); return false; }
+        // Ctrl+Shift+C (Inspector)
+        if (e.ctrlKey && e.shiftKey && e.key === 'C') { e.preventDefault(); return false; }
+        // F12 (DevTools)
+        if (e.key === 'F12') { e.preventDefault(); return false; }
+        // Ctrl+S (Save page)
+        if (e.ctrlKey && e.key === 's') { e.preventDefault(); return false; }
+        // Ctrl+A (Select all)
+        if (e.ctrlKey && e.key === 'a') { e.preventDefault(); return false; }
+        // Ctrl+P (Print - also shows source)
+        if (e.ctrlKey && e.key === 'p') { e.preventDefault(); return false; }
+    });
+
+    // 3. Detect DevTools open (size-based trick)
+    var devToolsOpen = false;
+    var threshold = 160;
+    setInterval(function() {
+        var widthDiff = window.outerWidth - window.innerWidth;
+        var heightDiff = window.outerHeight - window.innerHeight;
+        if (widthDiff > threshold || heightDiff > threshold) {
+            if (!devToolsOpen) {
+                devToolsOpen = true;
+                document.body.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100vh;background:#0a0a0a;color:#ffd700;font-family:sans-serif;font-size:1.5rem;text-align:center;"><div><div style="font-size:4rem;margin-bottom:20px">⚠️</div><div>DevTools terdeteksi.<br>Silakan tutup untuk melanjutkan.</div></div></div>';
+            }
+        } else {
+            if (devToolsOpen) {
+                devToolsOpen = false;
+                location.reload();
+            }
+        }
+    }, 1000);
+
+    // 4. Disable drag (prevent drag-to-copy text)
+    document.addEventListener('dragstart', function(e) {
+        e.preventDefault();
+        return false;
+    });
+
+})();
+
 // ==================== STATE ====================
 let audioContext = null, originalBuffer = null, audioFile = null;
 let audioDuration = 0, isPlaying = false, zoomLevel = 1;
