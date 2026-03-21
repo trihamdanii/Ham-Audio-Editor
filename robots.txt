@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ham-audio-editor.vercel.app/sitemap.xml
