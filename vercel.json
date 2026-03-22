@@ -1,28 +1,31 @@
 {
   "version": 2,
-  "builds": [{ "src": "index.html", "use": "@vercel/static" }],
-  "routes": [{ "src": "/(.*)", "dest": "/$1" }],
+  "builds": [
+    { "src": "index.html",  "use": "@vercel/static" },
+    { "src": "sitemap.xml", "use": "@vercel/static" },
+    { "src": "robots.txt",  "use": "@vercel/static" },
+    { "src": "og-image.png","use": "@vercel/static" }
+  ],
+  "routes": [
+    { "src": "/sitemap.xml", "dest": "/sitemap.xml" },
+    { "src": "/robots.txt",  "dest": "/robots.txt"  },
+    { "src": "/og-image.png","dest": "/og-image.png"},
+    { "src": "/(.*)",        "dest": "/index.html"  }
+  ],
   "headers": [
     {
       "source": "/(.*)",
       "headers": [
-
         { "key": "X-Content-Type-Options",  "value": "nosniff" },
         { "key": "X-Frame-Options",          "value": "SAMEORIGIN" },
         { "key": "X-XSS-Protection",         "value": "1; mode=block" },
         { "key": "Referrer-Policy",          "value": "strict-origin-when-cross-origin" },
         { "key": "Permissions-Policy",       "value": "camera=(), microphone=(), geolocation=()" },
-
-        {
-          "key": "Strict-Transport-Security",
-          "value": "max-age=31536000; includeSubDomains; preload"
-        },
-
+        { "key": "Strict-Transport-Security","value": "max-age=31536000; includeSubDomains; preload" },
         {
           "key": "Content-Security-Policy",
           "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://use.fontawesome.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://use.fontawesome.com; font-src 'self' data: https://cdnjs.cloudflare.com https://use.fontawesome.com; img-src 'self' data:; media-src 'self' blob:; connect-src 'self' https://cdn.jsdelivr.net; worker-src 'none'; object-src 'none'; base-uri 'self';"
         }
-
       ]
     },
     {
@@ -32,15 +35,23 @@
       ]
     },
     {
-      "source": "/robots.txt",
+      "source": "/sitemap.xml",
       "headers": [
+        { "key": "Content-Type",  "value": "application/xml; charset=utf-8" },
         { "key": "Cache-Control", "value": "public, max-age=86400" }
       ]
     },
     {
-      "source": "/sitemap.xml",
+      "source": "/robots.txt",
       "headers": [
+        { "key": "Content-Type",  "value": "text/plain; charset=utf-8" },
         { "key": "Cache-Control", "value": "public, max-age=86400" }
+      ]
+    },
+    {
+      "source": "/og-image.png",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=604800" }
       ]
     }
   ]
